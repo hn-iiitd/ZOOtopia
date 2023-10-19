@@ -17,7 +17,7 @@ public class Main {
         System.out.println("1. Enter as Admin \n2. Enter as Visitor\n3. View Special Details\n4. Exit");
         try{
             int selected_option = sc.nextInt();
-            if(selected_option>3 || selected_option<1){
+            if(selected_option>4 || selected_option<1){
                 throw new IncorrectOptionException("Please Enter a Valid Option");
             }
             else{
