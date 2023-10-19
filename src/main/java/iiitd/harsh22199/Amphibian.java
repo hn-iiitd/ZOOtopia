@@ -1,0 +1,4 @@
+package iiitd.harsh22199;
+
+public class Amphibian implements Animal{
+}
