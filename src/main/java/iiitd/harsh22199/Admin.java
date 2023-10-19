@@ -47,6 +47,8 @@ public class Admin {
         }
         catch (IncorrectOptionException | InputMismatchException e){
             System.out.println("Invalid Option Selected! ");
+            sc.nextLine();
+            manage_attraction();
         }
     }
 
@@ -101,6 +103,7 @@ public class Admin {
             }
         } catch (IncorrectOptionException  | InputMismatchException e){
             System.out.println("Invalid Option Selected");
+            sc.nextLine();
             admin_menu();
         }
 
@@ -147,6 +150,7 @@ public class Admin {
             }
         } catch (IncorrectOptionException  | InputMismatchException e){
             System.out.println("Invalid Option Selected");
+            sc.nextLine();
             admin_menu();
         }
     }
@@ -194,6 +198,7 @@ public class Admin {
         }
         catch (IncorrectOptionException | InputMismatchException e){
             System.out.println("Please Enter a valid option !");
+            sc.nextLine();
             manage_animals();
         }
     }
@@ -219,6 +224,7 @@ public class Admin {
         }
         else{
             System.out.println("Incorrect Username or Password");
+
             Main.start();
         }
     }

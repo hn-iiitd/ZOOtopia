@@ -6,7 +6,11 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
-    protected HashMap<String ,String> visitor_info = new HashMap<>();
+    protected static ArrayList<String> feedback = new ArrayList<>();
+    protected static ArrayList<Attraction> attractions = new ArrayList<Attraction>();
+    protected static ArrayList<Visitor> visitors_list = new ArrayList<Visitor>();
+
+    protected static HashMap<String ,String> visitor_info = new HashMap<>();
 
     static Scanner sc  = new Scanner(System.in);
 
@@ -15,6 +19,7 @@ public class Main {
     }
     public static void start() {
         System.out.println("1. Enter as Admin \n2. Enter as Visitor\n3. View Special Details\n4. Exit");
+        System.out.print("Enter your choice :  ");
         try{
             int selected_option = sc.nextInt();
             if(selected_option>4 || selected_option<1){
@@ -35,6 +40,7 @@ public class Main {
         }
         catch(InputMismatchException | IncorrectOptionException e){
             System.out.println(" Please Enter a Valid Option ");
+            sc.nextLine();
             start();
         }
     }
