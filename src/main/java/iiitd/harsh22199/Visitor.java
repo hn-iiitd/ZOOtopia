@@ -1,5 +1,6 @@
 package iiitd.harsh22199;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -11,6 +12,8 @@ public class Visitor {
     private String visitorBalance;
     private String visitorEmail;
     private String visitorPassword;
+    private boolean premium_membership = false;
+    private boolean basic_membership = false;
 
     static Scanner sc  = new Scanner(System.in);
     Visitor(){
@@ -185,7 +188,8 @@ public class Visitor {
 
     private void leaveFeedback() {
         System.out.println("Leave Feedback: ");
-        System.out.print("Enter feedback (max 200 characters): ");
+        System.out.println("Enter feedback (max 200 characters): ");
+
         String feedback = sc.nextLine();
         if(feedback.length() > 200){
             System.out.println("Feedback should not be of more than 200 words ! ");
@@ -257,7 +261,7 @@ public class Visitor {
         }
         else {
             for (int i = 0; i < Main.attractions.size(); i++) {
-                System.out.println(i + ". " + Main.attractions.get(i).getAttraction_name());
+                System.out.println(i + ". " + Main.attractions.get(i));
             }
         }
     }

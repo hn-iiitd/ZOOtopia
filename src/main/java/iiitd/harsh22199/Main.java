@@ -1,15 +1,21 @@
 package iiitd.harsh22199;
 
+import org.w3c.dom.Attr;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
+
+    protected static int attraction_count = 0;
     protected static ArrayList<String> feedback = new ArrayList<>();
     protected static ArrayList<Attraction> attractions = new ArrayList<Attraction>();
     protected static ArrayList<Visitor> visitors_list = new ArrayList<Visitor>();
-
+    protected static HashMap<Integer, Attraction>  attraction_id_map = new HashMap<Integer,Attraction>();
+    protected static ArrayList<Animal> animalList = new ArrayList<Animal>();
+    protected static HashMap<String,Discount> discountHashMap = new HashMap<String,Discount>();
     protected static HashMap<String ,String> visitor_info = new HashMap<>();
 
     static Scanner sc  = new Scanner(System.in);
