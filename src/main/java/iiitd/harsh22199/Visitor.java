@@ -106,8 +106,15 @@ public class Visitor {
         System.out.print("Enter Visitor Password : ");
         String password = sc.next();
         if(visitor_login_validation(email,password)){
-            System.out.println("Login Successful.");
-            visitor_menu();
+            for(int i =0;i<Main.visitors_list.size();i++){
+                if(Main.visitors_list.get(i).getVisitorEmail().equals(email)){
+                    Visitor v1 = Main.visitors_list.get(i);
+                    System.out.println("Login Successful.");
+                    v1.visitor_menu();
+                    break;
+                }
+            }
+
         }
         else{
             Main.start();
@@ -219,7 +226,7 @@ public class Visitor {
         System.out.println("Buy Membership: ");
         int i = 1;
         for (Map.Entry<String,Integer>entry : Main.memberships.entrySet()){
-            System.out.println(i+ ". " +entry.getKey() + " Membership ( Rs" + entry.getKey()+" )");
+            System.out.println(i+ ". " +entry.getKey() + " Membership ( Rs" + entry.getValue()+" )");
             i++;
         }
         System.out.print("Enter your choice :");
@@ -259,12 +266,14 @@ public class Visitor {
                         visitor_menu();
                     }
                 }
-                else if(disc==null || disc.isEmpty()){
+
+                else if(disc.equalsIgnoreCase("null")) {
                     double amount = membership_cost;
                     System.out.println("Total Amount to be Paid is : " + "Rs. "+ amount);
                     amount = this.getVisitorBalance() - amount;
                     if(amount<0){
                         System.out.println("Insufficient Balance!");
+
                         visitor_menu();
                     }
                     else{
@@ -279,10 +288,12 @@ public class Visitor {
                         visitor_menu();
                     }
                 }
-                else{
+                else {
+                    System.out.println();
                     System.out.println("Invalid Discount coupon");
                     buyMembership();
                 }
+
             }
 
         }
@@ -357,7 +368,8 @@ public class Visitor {
 
 
     private void register() {
-        System.out.print("Enter Visitor Name : ");String Name = sc.next();
+        sc.nextLine();
+        System.out.print("Enter Visitor Name : ");String Name = sc.nextLine();
         System.out.print("Enter Visitor Age : ");String Age = sc.next();
         System.out.print("Enter Visitor Phone : ");String Phone = sc.next();
         System.out.print("Enter Visitor Balance : ");

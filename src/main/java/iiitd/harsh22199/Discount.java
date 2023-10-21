@@ -69,11 +69,11 @@ public class Discount extends Admin {
 
     private static void add_discount() {
         System.out.println("Add Discount: ");
-        System.out.print("Enter Category ");
+        System.out.print("Enter Discount Category ");
         String _Category = sc.nextLine();
         System.out.print("Enter CouponCode: ");
         String _CouponCode = sc.nextLine();
-            System.out.print("Enter Discount%: ");
+            System.out.print("Enter Discount Percentage(e.g., 20 for 20%): ");
             try{
                 float _percentage = sc.nextFloat();
                 if(_percentage>100 || _percentage<0){
