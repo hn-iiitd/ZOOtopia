@@ -1,15 +1,13 @@
 package iiitd.harsh22199;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.lang.reflect.Member;
+import java.util.*;
 
 public class Visitor {
     private String visitorName;
     private String visitorAge;
     private String visitorPhone;
-    private String visitorBalance;
+    private double visitorBalance;
     private String visitorEmail;
     private String visitorPassword;
     private boolean premium_membership = false;
@@ -20,7 +18,7 @@ public class Visitor {
         signup();
     }
 
-    public Visitor(String visitorName, String visitorAge, String visitorPhone, String visitorBalance, String visitorEmail, String visitorPassword) {
+    public Visitor(String visitorName, String visitorAge, String visitorPhone, double visitorBalance, String visitorEmail, String visitorPassword) {
         this.visitorName = visitorName;
         this.visitorAge = visitorAge;
         this.visitorPhone = visitorPhone;
@@ -53,11 +51,11 @@ public class Visitor {
         this.visitorPhone = visitorPhone;
     }
 
-    public String getVisitorBalance() {
+    public double getVisitorBalance() {
         return this.visitorBalance;
     }
 
-    public void setVisitorBalance(String visitorBalance) {
+    public void setVisitorBalance(double visitorBalance) {
         this.visitorBalance = visitorBalance;
     }
 
@@ -218,6 +216,82 @@ public class Visitor {
     }
 
     private void buyMembership() {
+        System.out.println("Buy Membership: ");
+        int i = 1;
+        for (Map.Entry<String,Integer>entry : Main.memberships.entrySet()){
+            System.out.println(i+ ". " +entry.getKey() + " Membership ( Rs" + entry.getKey()+" )");
+            i++;
+        }
+        System.out.print("Enter your choice :");
+        try{
+            int choice = sc.nextInt();
+            if(choice > 2 || choice<0){
+                throw new IncorrectOptionException("Invalid option");
+            }
+            else{
+                System.out.print("Apply Discount Code: ");
+                String disc = sc.next();
+                double membership_cost = 20;
+                String membership_name = "Basic Membership";
+
+                if(choice==2){
+                    membership_name = "Premium Membership";
+                    membership_cost = 50;
+                }
+
+                if(Main.discountHashMap.containsKey(disc)){
+                    double amount = membership_cost - membership_cost*(Main.discountHashMap.get(disc).getPercentage()/100);
+                    System.out.println("Total Amount to be Paid is : " + "Rs. "+ amount);
+                    amount = this.getVisitorBalance() - amount;
+                    if(amount<0){
+                        System.out.println("Insufficient Balance!");
+                        visitor_menu();
+                    }
+                    else{
+                        this.setVisitorBalance(amount);
+                        if(choice==1){
+                            this.basic_membership = true;
+                        }
+                        else{
+                            this.premium_membership = true;
+                        }
+                        System.out.println(membership_name + " purchased successfully. Your balance is now Rs. " + amount );
+                        visitor_menu();
+                    }
+                }
+                else if(disc==null || disc.isEmpty()){
+                    double amount = membership_cost;
+                    System.out.println("Total Amount to be Paid is : " + "Rs. "+ amount);
+                    amount = this.getVisitorBalance() - amount;
+                    if(amount<0){
+                        System.out.println("Insufficient Balance!");
+                        visitor_menu();
+                    }
+                    else{
+                        this.setVisitorBalance(amount);
+                        if(choice==1){
+                            this.basic_membership = true;
+                        }
+                        else{
+                            this.premium_membership = true;
+                        }
+                        System.out.println(membership_name + " purchased successfully. Your balance is now Rs. " + amount );
+                        visitor_menu();
+                    }
+                }
+                else{
+                    System.out.println("Invalid Discount coupon");
+                    buyMembership();
+                }
+            }
+
+        }
+        catch (Exception e){
+            System.out.println("Invalid option Selected. Please Try Again.");
+            sc.nextLine();
+            buyMembership();
+        }
+
     }
 
     private void exploreZoo() {
@@ -255,15 +329,30 @@ public class Visitor {
     }
 
     private void viewAttractions() {
-        System.out.println("Attractions: ");
+        System.out.println("Attractions in the Zoo: ");
         if(Main.attractions.isEmpty()){
             System.out.println("Sorry! No attractions available right now !");
         }
         else {
             for (int i = 0; i < Main.attractions.size(); i++) {
-                System.out.println(i + ". " + Main.attractions.get(i));
+                System.out.println(i+1 + ". " + Main.attractions.get(i));
+            }
+            System.out.print("Enter your choice: ");
+            try {
+                int choice = sc.nextInt();
+                if(choice>Main.attractions.size()+1 || choice<1){
+                    throw new IncorrectOptionException("Invalid Option!");
+                }
+                System.out.println(Main.attractions.get(choice-1).getAttraction_details());
+            }
+            catch (IncorrectOptionException | InputMismatchException e){
+                System.out.println("Invalid option selected.");
+            }
+            finally {
+                viewAttractions();
             }
         }
+
     }
 
 
@@ -271,14 +360,23 @@ public class Visitor {
         System.out.print("Enter Visitor Name : ");String Name = sc.next();
         System.out.print("Enter Visitor Age : ");String Age = sc.next();
         System.out.print("Enter Visitor Phone : ");String Phone = sc.next();
-        System.out.print("Enter Visitor Balance : ");String Balance = sc.next();
-        System.out.print("Enter Visitor Email : ");String Email = sc.next();
-        System.out.print("Enter Visitor Password : ");String Password = sc.next();
-        Visitor v1 = new Visitor(Name,Age,Phone,Balance,Email,Password);
-        Main.visitors_list.add(v1);
-        Main.visitor_info.put(v1.getVisitorEmail(),v1.getVisitorPassword());
-        System.out.println("You have been Successfully Registered!");
-        System.out.println("Please login with your credentials");
-        signup();
+        System.out.print("Enter Visitor Balance : ");
+        try {
+            double Balance = sc.nextDouble();
+            System.out.print("Enter Visitor Email : ");String Email = sc.next();
+            System.out.print("Enter Visitor Password : ");String Password = sc.next();
+            Visitor v1 = new Visitor(Name,Age,Phone,Balance,Email,Password);
+            Main.visitors_list.add(v1);
+            Main.visitor_info.put(v1.getVisitorEmail(),v1.getVisitorPassword());
+            System.out.println("You have been Successfully Registered!");
+            System.out.println("Please login with your credentials");
+            signup();
+        }
+        catch (InputMismatchException e){
+            System.out.println("Invalid Balance Entered! Try Again!");
+            sc.nextLine();
+            signup();
+        }
+
     }
 }

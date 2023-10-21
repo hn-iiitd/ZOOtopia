@@ -8,6 +8,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
+    protected static HashMap<String,Integer> memberships = new HashMap<String,Integer>();
 
     protected static int attraction_count = 0;
     protected static ArrayList<String> feedback = new ArrayList<>();
@@ -57,6 +58,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
-            start();
+        memberships.put("Basic", 20); //adding memberships for zoo
+        memberships.put("Premium",50);
+        start();
              }
     }
