@@ -6,6 +6,32 @@ import java.util.InputMismatchException;
 public abstract class Animal extends Admin{
 
     private String name;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSound() {
+        return sound;
+    }
+
+    public void setSound(String sound) {
+        this.sound = sound;
+    }
+
+    public String getAnimal_facts() {
+        return animal_facts;
+    }
+
+    public void setAnimal_facts(String animal_facts) {
+        this.animal_facts = animal_facts;
+    }
+
     private String sound;
     private String animal_facts;
 
@@ -51,10 +77,56 @@ public abstract class Animal extends Admin{
     }
 
     private static void remove_animal() {
+        System.out.println("Remove Animals: ");
+        for(int i = 0 ; i<Main.animalList.size();i++){
+            System.out.println(i+1 + ". "+Main.animalList.get(i).getName());
+
+        }
+        System.out.print("Enter your choice: ");
+        int choice = sc.nextInt();
+        if(choice>0 && choice<Main.animalList.size()){
+            Main.animalList.remove(choice-1);
+            System.out.println("Animal removed Successfully");
+        }
+        else{
+            System.out.println("Invalid input.");
+        }
+        admin_menu();
 
     }
 
     private static void update_animal_details() {
+        System.out.println("Update Animals: ");
+        for(int i = 0 ; i<Main.animalList.size();i++){
+            System.out.println(i+1 + ". "+Main.animalList.get(i).getName());
+
+        }
+        System.out.print("Enter your choice: ");
+        int choice = sc.nextInt();
+        System.out.println("1. Change Animal Details ");
+        System.out.println("2. Change Sound");
+        System.out.println("3. Change Name");
+        System.out.print("Enter your choice: ");
+        int c  = sc.nextInt();
+        if(c==1){
+            System.out.print("Enter new Animal Details: ");
+            Main.animalList.get(choice-1).setAnimal_facts(sc.nextLine());
+            System.out.println("Details updated");
+        }
+        else if(c==2){
+            System.out.print("Enter new sound: ");
+            Main.animalList.get(choice-1).setSound(sc.next());
+            System.out.println("Animal Sound updated");
+        }
+        else if(c==3){
+            System.out.print("Enter new Name: ");
+            Main.animalList.get(choice-1).setName(sc.next());
+            System.out.println("Animal Name updated.");
+        }
+        else{
+            System.out.println("Invalid Input!");
+        }
+        admin_menu();
     }
 
     private static void add_animals() {
@@ -62,26 +134,23 @@ public abstract class Animal extends Admin{
         System.out.print("Enter Animal Name: ");
         sc.nextLine();
         String animalName = sc.nextLine();
-        System.out.print("Enter Animal Type: ");
+        System.out.print("Enter Animal Type: (Mammals, Amphibians, Reptiles");
         String Animal_Type = sc.next();
 
-        if(Animal_Type.equalsIgnoreCase("Mammals") || Animal_Type.equalsIgnoreCase("Reptiles")|| Animal_Type.equalsIgnoreCase("Amphibians")) {
-            System.out.print("Enter " + animalName +"'s noise : ");
-            String noise = sc.next();
-            if (Animal_Type.equalsIgnoreCase("Mammals")) {
+        if(Animal_Type.equalsIgnoreCase("Mammals") || Animal_Type.equalsIgnoreCase("mammal")||Animal_Type.equalsIgnoreCase("Reptiles")||Animal_Type.equalsIgnoreCase("reptile")|| Animal_Type.equalsIgnoreCase("Amphibians") || Animal_Type.equalsIgnoreCase("amphibian")) {
+            if (Animal_Type.equalsIgnoreCase("Mammals") || Animal_Type.equalsIgnoreCase("mammal")) {
                 Animal m1 = new Mammal(animalName);
-                m1.sound = noise;
                 Main.animalList.add(m1);
 
-            } else if (Animal_Type.equalsIgnoreCase("Reptiles")) {
+            } else if (Animal_Type.equalsIgnoreCase("Reptiles")|| Animal_Type.equalsIgnoreCase("reptile")) {
                 Animal m1 = new Reptile(animalName);
-                m1.sound = noise;
                 Main.animalList.add(m1);
-            } else if (Animal_Type.equalsIgnoreCase("Amphibians")) {
+            } else if (Animal_Type.equalsIgnoreCase("Amphibians")|| Animal_Type.equalsIgnoreCase("amphibian")) {
                 Animal m1 = new Amphibian(animalName);
-                m1.sound = noise;
                 Main.animalList.add(m1);
             }
+            System.out.println("Animal added to Zoo.");
+            admin_menu();
         }
         else{
             System.out.println("Animal of type"+ Animal_Type+ " can't be added!");

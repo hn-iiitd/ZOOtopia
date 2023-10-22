@@ -117,10 +117,10 @@ public class Attraction extends Admin implements Event{
         try{
             int id_inp = sc.nextInt();
             boolean flag = false;
-            for(int i = 0 ;i<attractions.size();i++){
-                if(attractions.get(i).attraction_id==id_inp){
+            for(int i = 0 ;i<Main.attractions.size();i++){
+                if(Main.attractions.get(i).attraction_id==id_inp){
 
-                    attractions.remove(attractions.get(i));
+                    Main.attractions.remove(Main.attractions.get(i));
                     flag = true;
                     break;
                 }
@@ -143,12 +143,12 @@ public class Attraction extends Admin implements Event{
 
     private static void view_attraction() {
         System.out.println("View Attractions");
-        if(attractions.isEmpty()){
+        if(Main.attractions.isEmpty()){
             System.out.println("No attractions added by the admin.");
         }
         else{
             System.out.println("id" + " " + "        Name        " + " " + "Price");
-            for (Attraction attraction : attractions) {
+            for (Attraction attraction : Main.attractions) {
                 System.out.println(attraction.attraction_id + " " + attraction.getEvent_name() + " " + attraction.getEvent_price());
             }
         }
@@ -160,16 +160,16 @@ public class Attraction extends Admin implements Event{
         String attraction_Name = sc.nextLine();
         String attraction_detail = sc.nextLine();
         Attraction a1 = new Attraction(attraction_Name,attraction_detail,attraction_count +1);
-        attraction_count +=1;
-        attraction_id_map.put(attraction_count,a1);
-        attractions.add(a1);
+        Admin.attraction_count +=1;
+        Main.attraction_id_map.put(attraction_count,a1);
+        Main.attractions.add(a1);
         }
     protected static void schedule_event(){
         view_attraction();
         System.out.print("Enter id of attraction you want to schedule: ");
         int id_sch = sc.nextInt();
-        if(attraction_id_map.containsKey(id_sch)){
-            String attraction_name = attraction_id_map.get(id_sch).getEvent_name();
+        if(Main.attraction_id_map.containsKey(id_sch)){
+            String attraction_name = Main.attraction_id_map.get(id_sch).getEvent_name();
             System.out.println("Attraction Name: " + attraction_name);
             System.out.println("1. Add/Change ticket price");
             System.out.println("2. Open " + attraction_name);
@@ -185,7 +185,7 @@ public class Attraction extends Admin implements Event{
                     System.out.print("Enter ticket price for " + attraction_name +":");
                     try {
                         float attraction_price = sc.nextFloat();
-                        attraction_id_map.get(id_sch).setEvent_price(attraction_price);
+                        Main.attraction_id_map.get(id_sch).setEvent_price(attraction_price);
                     }
                     catch (InputMismatchException e){
                         System.out.println("Please give valid price for attraction !");
@@ -194,10 +194,10 @@ public class Attraction extends Admin implements Event{
                     }
                 }
                 else if(choice==2){
-                    attraction_id_map.get(id_sch).setAttraction_status(true);
+                    Main.attraction_id_map.get(id_sch).setAttraction_status(true);
                     System.out.println("Attraction is open now");
                 } else if (choice==3) {
-                    attraction_id_map.get(id_sch).setAttraction_status(false);
+                    Main.attraction_id_map.get(id_sch).setAttraction_status(false);
                 } else {
                     exit();
                     }

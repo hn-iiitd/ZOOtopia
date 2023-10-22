@@ -4,9 +4,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 //Admin Username --> admin
 //Admin Password --> admin123
-public class Admin extends Main {
+public class Admin extends Main{
     private static final String admin_username = "admin";
     private static final String admin_password = "admin123";
+    static int attraction_count = 0;
     static Scanner sc = new Scanner(System.in);
 
     public static void admin_menu() {
@@ -57,19 +58,22 @@ public class Admin extends Main {
 
     static void exit() {
         System.out.println("Logged out.");
-        start();
+        Main.start();
     }
 
     private static void view_feedback() {
-        for (String s : feedback) {
+        for (String s : Main.feedback) {
             System.out.println(s);
         }
     }
 
     private static void view_visitor_stats() {
+
     }
 
     private static void set_special_deals() {
+
+//to be done
     }
 
 
