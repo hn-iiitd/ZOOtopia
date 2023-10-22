@@ -105,6 +105,7 @@ public class Discount extends Admin {
                 System.out.println("Discount Code Successfully changed to "+ newDisc);
 
             }
+            admin_menu();
         }
         else {
             System.out.println("Please Enter valid discount Code.");
@@ -128,17 +129,20 @@ public class Discount extends Admin {
 
     private static void add_discount() {
         System.out.println("Add Discount: ");
-        System.out.print("Enter Discount Category ");
+        System.out.print("Enter Discount Category : ");
+        sc.nextLine();
         String _Category = sc.nextLine();
             System.out.print("Enter Discount Percentage(e.g., 20 for 20%): ");
             try{
-                float _percentage = sc.nextFloat();
+                int _percentage = sc.nextInt();
                 if(_percentage>100 || _percentage<0){
                     throw new IncorrectOptionException("Please enter valid percentage.");
                 }
                 String _CouponCode = generate_coupon_code(_Category,_percentage);
                 Discount d1 = new Discount(_Category,_percentage,_CouponCode);
                 Main.discountHashMap.put(d1.DiscountCode,d1);
+                System.out.println("New Discount Coupon Added with Coupon Code - "+ d1.DiscountCode + " .");
+                admin_menu();
 
 
             }
@@ -146,11 +150,11 @@ public class Discount extends Admin {
                 System.out.println("Please Enter valid discount percentage");
                 sc.nextLine();
 
-                add_discount();
+                admin_menu();
             }
         }
 
-    private static String generate_coupon_code(String category, float percentage) {
+    private static String generate_coupon_code(String category, int percentage) {
         category = category.strip();
         category = category.toUpperCase();
         StringBuilder sb = new StringBuilder();

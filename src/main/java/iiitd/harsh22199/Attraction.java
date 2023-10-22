@@ -100,7 +100,7 @@ public class Attraction extends Admin implements Event{
                     admin_menu();
                 }
                 else{
-                    exit(); //check
+                    admin_menu(); //check
                 }
 
             }
@@ -156,8 +156,10 @@ public class Attraction extends Admin implements Event{
 
     private static void add_attraction() {
         System.out.println("Add attraction: ");
+        sc.nextLine();
         System.out.print("Enter Attraction Name: ");
         String attraction_Name = sc.nextLine();
+        System.out.print("Enter Attraction Details: ");
         String attraction_detail = sc.nextLine();
         Attraction a1 = new Attraction(attraction_Name,attraction_detail,attraction_count +1);
         Admin.attraction_count +=1;

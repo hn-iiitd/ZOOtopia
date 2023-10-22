@@ -97,8 +97,11 @@ public class Admin extends Main{
     public static boolean admin_login_details_check(String Username, String Password) {
         return Username.contentEquals(getAdmin_username()) && Password.contentEquals(getAdmin_password());
     }
-    Admin(){
+    Admin(String username){
         admin_login();
+    }
+    Admin(){
+
     }
 
     public static String getAdmin_password() {

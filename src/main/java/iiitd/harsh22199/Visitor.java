@@ -3,7 +3,7 @@ package iiitd.harsh22199;
 import java.lang.reflect.Member;
 import java.util.*;
 
-public class Visitor{
+public class Visitor extends Main{
     public static ArrayList<String> getTicketArrayList() {
         return ticketArrayList;
     }
@@ -199,21 +199,22 @@ public class Visitor{
         for(int i = 0 ; i<Main.animalList.size();i++){
             System.out.println(i+1 + ". "+Main.animalList.get(i).getName());
         }
-        System.out.println("Enter you choice: ");
+        System.out.print("Enter you choice: ");
         int c = sc.nextInt();
         System.out.println(Main.animalList.get(c-1).getName() );
         System.out.println("1. Feed Animal.");
         System.out.println("2. Read about Animal.");
+        System.out.print("Enter your choice: ");
         int n = sc.nextInt();
         if(n==1){
-            System.out.println(Main.animalList.get(c-1).getSound());
+            System.out.println("Noise from "+ Main.animalList.get(c-1).getName() +  " : \n"+Main.animalList.get(c-1).getSound());
         }else if(n==2){
-            System.out.println(Main.animalList.get(c-1).getSound());
+            System.out.println("Facts about " + Main.animalList.get(c-1).getName()+" : \n"+Main.animalList.get(c-1).getAnimal_facts());
         }
         else{
             System.out.println("Wrong option selected.");
-            visitor_menu();
         }
+        visitor_menu();
     }
     private void exit() {
         System.out.println("Logged out Successfully !");
@@ -309,7 +310,7 @@ public class Visitor{
                         else{
                             this.premium_membership = true;
                         }
-                        System.out.println(membership_name + " purchased successfully. Your balance is now Rs. " + amount );
+                        System.out.println(membership_name + " purchased successfully. Your balance is now Rs. " + new_balance );
                         visitor_menu();
                     }
                 }

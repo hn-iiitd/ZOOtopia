@@ -33,7 +33,7 @@ public class Main {
             }
             else{
                 if(selected_option == 1){
-                    new Admin();
+                    new Admin("admin");
                 } else if (selected_option ==2) {
                     new Visitor();
                 } else if(selected_option==3){
@@ -75,6 +75,10 @@ public class Main {
         frog.setSound("bonk"); frog.setAnimal_facts("Frog is an Amphibian");
         Animal caecilians = new Amphibian("Caecilians");
         caecilians.setSound("sssss");caecilians.setAnimal_facts("Caecelian is an Amphibian");
+        animalList.add(Lion);animalList.add(Monkey);
+        animalList.add(Crocodile); animalList.add(Turtle);
+        animalList.add(frog);animalList.add(caecilians);
+
         start();
              }
     }

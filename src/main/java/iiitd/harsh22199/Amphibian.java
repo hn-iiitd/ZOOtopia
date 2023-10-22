@@ -2,7 +2,7 @@ package iiitd.harsh22199;
 
 public class Amphibian extends Animal{
     public Amphibian(String name) {
-        super();
+        this.Name = name;
     }
     private String Name;
 
