@@ -4,15 +4,16 @@ import java.lang.reflect.Member;
 import java.util.*;
 
 public class Visitor extends Main{
-    public static ArrayList<String> getTicketArrayList() {
-        return ticketArrayList;
+
+    public static HashMap<String, Double> getTicketMap() {
+        return ticketMap;
     }
 
-    public static void setTicketArrayList(ArrayList<String> ticketArrayList) {
-        Visitor.ticketArrayList = ticketArrayList;
+    public static void setTicketMap(HashMap<String, Double> ticketMap) {
+        Visitor.ticketMap = ticketMap;
     }
 
-    private static ArrayList<String> ticketArrayList = new ArrayList<>();
+    private static HashMap<String,Double> ticketMap = new HashMap<>();
     private String visitorName;
     private String visitorAge;
     private String visitorPhone;
@@ -85,6 +86,7 @@ public class Visitor extends Main{
     }
 
     private void signup() {
+        System.out.println("Welcome Visitor : ");
         System.out.println("""
                 1. Register
                 2. Login""");
@@ -105,7 +107,7 @@ public class Visitor extends Main{
         catch(IncorrectOptionException | InputMismatchException e){
                 System.out.println("Invalid Option!");
                 sc.nextLine();
-                signup();
+                Main.start();
             }
         }
 
@@ -148,6 +150,7 @@ public class Visitor extends Main{
     }
 
     private void visitor_menu() {
+        System.out.println();
         System.out.println("""
                 Visitor Menu:
                 1. Explore the Zoo
@@ -166,22 +169,31 @@ public class Visitor extends Main{
                 throw new IncorrectOptionException("Invalid Option!");
             } else {
                 if (selected_option == 1) {
+                    System.out.println();
                     exploreZoo();
                 } else if (selected_option == 2) {
+                    System.out.println();
                     buyMembership();
                 }else if (selected_option == 3) {
+                    System.out.println();
                     buyTickets();
                 }else if (selected_option == 4) {
+                    System.out.println();
                     viewDiscounts();
                 }else if (selected_option == 5) {
+                    System.out.println();
                     viewSpecialDeals();
                 }else if (selected_option == 6) {
+                    System.out.println();
                     visitAnimals();
                 }else if (selected_option == 7) {
+                    System.out.println();
                     visitAttractions();
                 }else if (selected_option == 8) {
+                    System.out.println();
                     leaveFeedback();
                 }else {
+                    System.out.println();
                     exit();
                 }
             }
@@ -223,6 +235,8 @@ public class Visitor extends Main{
 
     private void leaveFeedback() {
         System.out.println("Leave Feedback: ");
+        sc.nextLine();
+
         System.out.println("Enter feedback (max 200 characters): ");
 
         String feedback = sc.nextLine();
@@ -239,37 +253,84 @@ public class Visitor extends Main{
 
     private void visitAttractions() {
         System.out.println("Visit Attractions: ");
-        System.out.println("Select an Attraction to Visit: ");
-        for(int i = 0 ; i< Main.attractions.size();i++){
-            System.out.println(i+1 + ". " + Main.attractions.get(i).getEvent_name());
-        }
-        System.out.print("Enter your choice: ");
-        int n  = sc.nextInt();
-
-        if(this.premium_membership || getTicketArrayList().contains(Main.attractions.get(n-1).getEvent_name())){
-            Main.visitor_count+=1;
-            Main.attractions.get(n-1).setCountOfvisitors(Main.attractions.get(n-1).getCountOfvisitors()+1);
-            System.out.println("1 ticket Used!");
-            System.out.println("Thank you for visiting "+ Main.attractions.get(n-1).getEvent_name() +". Hope you enjoyed the attraction");
+        if(Main.attractions.isEmpty()){
+            System.out.println("Sorry! Currently no attractions are open!");
         }
         else{
-            System.out.println("Ticket not available: Basic Members need to buy separate tickets for the attractions.");
+            System.out.println("Select an Attraction to Visit: ");
+
+            for(int i = 0 ; i< Main.attractions.size();i++){
+                System.out.println(i+1 + ". " + Main.attractions.get(i).getEvent_name());
+            }
+            System.out.print("Enter your choice: ");
+            int n  = sc.nextInt();
+
+            if(this.premium_membership || ticketMap.containsKey(Main.attractions.get(n-1).getEvent_name())){
+                Main.visitor_count+=1;
+                Main.attractions.get(n-1).setCountOfvisitors(Main.attractions.get(n-1).getCountOfvisitors()+1);
+                System.out.println("1 ticket Used!");
+                ticketMap.remove(Main.attractions.get(n-1).getEvent_name());
+                System.out.println("Thank you for visiting "+ Main.attractions.get(n-1).getEvent_name() +". Hope you enjoyed the attraction");
+            }
+            else{
+                System.out.println("Ticket not available: Basic Members need to buy separate tickets for the attractions.");
+
+            }
+
         }
+        visitor_menu();
+
 
     }
 
 
 
     private void viewSpecialDeals() {
+        int i = 1;
+        System.out.println("Special Deals: ");
+        if(Main.Deal1){
+            System.out.println(i +". "+"Buy 2 tickets and get 15% off.");
+            i++;
+        }
+        if(Main.Deal2){
+            System.out.println(i+". "+"Buy 3 tickets and get 30% off.");
+        }
+        visitor_menu();
     }
 
     private void viewDiscounts() {
+        System.out.println("View Discounts: ");
         for (Map.Entry<String,Discount>entry : Main.discountHashMap.entrySet()){
             System.out.println(entry.getValue().getCategory() + " " + entry.getKey());
         }
+        visitor_menu();
     }
 
     private void buyTickets() {
+        System.out.println("Buy Tickets: ");
+        System.out.println("Select an Attraction to buy a Ticket: ");
+        for(int i = 0 ; i<Main.attractions.size();i++){
+            System.out.println(i+1 + ". " + Main.attractions.get(i).getEvent_name() + " (Rs. "+ Main.attractions.get(i).getEvent_price() +" )");
+        }
+        int disc_amount = 0; //check
+        System.out.println();
+        System.out.print("Enter your choice: ");
+        int choice  = sc.nextInt();
+        if(choice>Main.attractions.size() || choice<1){
+            System.out.println("You have chose Invalid option");
+        }
+        else{
+            if(getVisitorBalance()>=(Main.attractions.get(choice-1).getEvent_price() - disc_amount)){
+                setVisitorBalance(getVisitorBalance()-Main.attractions.get(choice-1).getEvent_price() + disc_amount);
+                Main.revenue+=Main.attractions.get(choice-1).getEvent_price() - disc_amount;
+                ticketMap.put(Main.attractions.get(choice-1).getEvent_name(),Main.attractions.get(choice-1).getEvent_price());
+                System.out.println("The ticket for " + Main.attractions.get(choice-1).getEvent_name()+" was purchased successfully. Your balance is now Rs. " + getVisitorBalance());
+            }
+            else{
+                System.out.println("Insufficient Balance");
+            }
+        }
+        visitor_menu();
     }
 
     private void buyMembership() {
@@ -302,7 +363,8 @@ public class Visitor extends Main{
                         visitor_menu();
                     }
                     else{
-                        this.setVisitorBalance(amount);
+                        this.setVisitorBalance(new_balance);
+                        Main.revenue+=amount;
 
                         if(choice==1){
                             this.basic_membership = true;
@@ -315,7 +377,7 @@ public class Visitor extends Main{
                     }
                 }
 
-                else if(disc.equalsIgnoreCase("null")) {
+                else if(disc.equalsIgnoreCase("null")|| disc.equalsIgnoreCase("none")) {
                     double amount = membership_cost;
                     System.out.println("Total Amount to be Paid is : " + "Rs. "+ amount);
                     double new_balance = this.getVisitorBalance() - amount;
@@ -326,13 +388,15 @@ public class Visitor extends Main{
                     }
                     else{
                         this.setVisitorBalance(new_balance);
+                        Main.revenue+=amount;
+
                         if(choice==1){
                             this.basic_membership = true;
                         }
                         else{
                             this.premium_membership = true;
                         }
-                        System.out.println(membership_name + " purchased successfully. Your balance is now Rs. " + amount );
+                        System.out.println(membership_name + " purchased successfully. Your balance is now Rs. " + new_balance );
                         visitor_menu();
                     }
                 }
@@ -348,7 +412,7 @@ public class Visitor extends Main{
         catch (Exception e){
             System.out.println("Invalid option Selected. Please Try Again.");
             sc.nextLine();
-            buyMembership();
+            visitor_menu();
         }
 
     }
@@ -371,7 +435,7 @@ public class Visitor extends Main{
                      viewAnimals();
                 }
                 else {
-                    exit();
+                    visitor_menu();
                 }
             }
 
@@ -398,7 +462,9 @@ public class Visitor extends Main{
         else{
             System.out.println(Main.animalList.get(choice-1).getAnimal_facts());
             System.out.println("Go to Visit Animals to visit all the Animals");
+
         }
+        visitor_menu();
     }
 
     private void viewAttractions() {
@@ -417,11 +483,11 @@ public class Visitor extends Main{
                     throw new IncorrectOptionException("Invalid Option!");
                 }
                 System.out.println(Main.attractions.get(choice-1).getAttraction_details());
-                visitor_menu();
+                exploreZoo();
             }
             catch (IncorrectOptionException | InputMismatchException e){
                 System.out.println("Invalid option selected.");
-                visitor_menu();
+                exploreZoo();
             }
 
         }

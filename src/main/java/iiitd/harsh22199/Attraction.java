@@ -6,7 +6,7 @@ public class Attraction extends Admin implements Event{
     private String attraction_details;
     private final int attraction_id;
     private String attraction_name;
-    private float price;
+    private double price;
     private int countOfvisitors = 0;
     private boolean attraction_status = false;
 
@@ -34,11 +34,12 @@ public class Attraction extends Admin implements Event{
         this.countOfvisitors = countOfvisitors;
     }
 
-    public Attraction(String attraction_name, String details, int attraction_id) {
+    public Attraction(String attraction_name, String details) {
         super();
         this.attraction_name = attraction_name;
         this.attraction_details = details;
-        this.attraction_id=attraction_id;
+        this.attraction_id= Main.attraction_id_no;
+        Main.attraction_id_no++;
     }
 
     @Override
@@ -51,11 +52,11 @@ public class Attraction extends Admin implements Event{
     }
 
     @Override
-    public float getEvent_price() {
+    public double getEvent_price() {
         return price;
     }
  @Override
-    public void setEvent_price(float price) {
+    public void setEvent_price(double price) {
         this.price = price;
     }
 
@@ -161,10 +162,10 @@ public class Attraction extends Admin implements Event{
         String attraction_Name = sc.nextLine();
         System.out.print("Enter Attraction Details: ");
         String attraction_detail = sc.nextLine();
-        Attraction a1 = new Attraction(attraction_Name,attraction_detail,attraction_count +1);
-        Admin.attraction_count +=1;
-        Main.attraction_id_map.put(attraction_count,a1);
+        Attraction a1 = new Attraction(attraction_Name,attraction_detail);
+        Main.attraction_id_map.put(a1.attraction_id,a1);
         Main.attractions.add(a1);
+        System.out.println("Attraction added successfully.");
         }
     protected static void schedule_event(){
         view_attraction();
@@ -186,7 +187,7 @@ public class Attraction extends Admin implements Event{
                 else if(choice==1){
                     System.out.print("Enter ticket price for " + attraction_name +":");
                     try {
-                        float attraction_price = sc.nextFloat();
+                        double attraction_price = sc.nextDouble();
                         Main.attraction_id_map.get(id_sch).setEvent_price(attraction_price);
                     }
                     catch (InputMismatchException e){

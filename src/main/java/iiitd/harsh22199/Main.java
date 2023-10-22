@@ -7,9 +7,12 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
+    protected static boolean Deal1 = true;
+    protected static boolean Deal2 = true;
+    protected static int attraction_id_no = 1;
 
     protected static int visitor_count = 0;
-    protected static int revenue = 0;
+    protected static double revenue = 0;
     protected static ArrayList<String> feedback = new ArrayList<>();
     protected static ArrayList<Attraction> attractions = new ArrayList<>();
     protected static ArrayList<Visitor> visitors_list = new ArrayList<>();
@@ -20,11 +23,15 @@ public class Main {
 
     static Scanner sc  = new Scanner(System.in);
 
-    public static void special_details() {
-
+    public static void special_deals() {
+        System.out.println("1.If a person buys more than 2 attractions, they get a special discount of 15% on the " +
+                "total amount\n" +
+                "2.If a person buys more than 3 attractions, they get a special discount of 30% on the " +
+                "total amount");
+        start();
     }
     public static void start() {
-        System.out.println("1. Enter as Admin \n2. Enter as Visitor\n3. View Special Details\n4. Exit");
+        System.out.println("1. Enter as Admin \n2. Enter as Visitor\n3. View Special Deals\n4. Exit");
         System.out.print("Enter your choice :  ");
         try{
             int selected_option = sc.nextInt();
@@ -37,7 +44,7 @@ public class Main {
                 } else if (selected_option ==2) {
                     new Visitor();
                 } else if(selected_option==3){
-                    special_details();
+                    special_deals();
                 }
                 else{
                     exit();
@@ -57,6 +64,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        //by default special deals are turned on. You can turn it off using admin interface
         //adding default discount categories (can be modified or removed through admin interface) (can also add more discount categories through admin interface.)
         Discount d1 = new Discount("Minor",10,"MINOR10");
         Discount d2 = new Discount("Senior Citizen",20,"SENIOR20");
@@ -78,7 +86,11 @@ public class Main {
         animalList.add(Lion);animalList.add(Monkey);
         animalList.add(Crocodile); animalList.add(Turtle);
         animalList.add(frog);animalList.add(caecilians);
-
+        //Adding two sample attractions (Can also be added through admin interface).
+        Attraction a1 = new Attraction("Botanical Garden","ZOOtopia offers an adventure ride that allows you to explore unexplored trails. Buy your " +
+                "ticket now!");a1.setEvent_price(15);
+        Attraction a2 = new Attraction("Dinosaur Show","World's best show");a2.setEvent_price(12);
+        Main.attractions.add(a1);Main.attractions.add(a2);
         start();
              }
     }
