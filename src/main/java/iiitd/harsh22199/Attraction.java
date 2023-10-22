@@ -118,6 +118,9 @@ public class Attraction extends Admin implements Event{
         try{
             int id_inp = sc.nextInt();
             boolean flag = false;
+            if(!Main.attraction_id_map.containsKey(id_inp)){
+                throw new IncorrectOptionException("Invalid id");
+            }
             for(int i = 0 ;i<Main.attractions.size();i++){
                 if(Main.attractions.get(i).attraction_id==id_inp){
 
@@ -126,9 +129,7 @@ public class Attraction extends Admin implements Event{
                     break;
                 }
             }
-            if(!flag){
-                throw new IncorrectOptionException("Invalid id");
-            }
+            Main.attraction_id_map.remove(id_inp);
             System.out.println("Attraction removed Successfully!");
         }
         catch (InputMismatchException |IncorrectOptionException e){
@@ -138,7 +139,16 @@ public class Attraction extends Admin implements Event{
 
     private static void modify_attraction() {
         System.out.println("Modify Attractions: ");
-        System.out.println();
+        view_attraction();
+        System.out.print("Enter your choice: ");
+        int choice = sc.nextInt();
+        if(!Main.attraction_id_map.containsKey(choice)){
+            System.out.println("Please enter valid attraction id.");
+        }
+        else{
+            System.out.println("Modify : "); //here oct22 17:47:42
+            System.out.println("Enter your choice: ");
+        }
 
     }
 
