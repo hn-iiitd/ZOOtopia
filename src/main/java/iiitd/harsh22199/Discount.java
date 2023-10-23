@@ -41,6 +41,7 @@ public class Discount extends Admin {
                 2. Modify Discount
                 3. Remove Discount
                 4. Exit""");
+        System.out.println();
         System.out.print("Enter your choice : ");
         try {
             int selected_option = sc.nextInt();
@@ -68,40 +69,42 @@ public class Discount extends Admin {
     }
 
     private static void modify_discount() {
+        System.out.println();
         System.out.println("Modify Discount: ");
-        for (Map.Entry<String,Discount>entry: Main.discountHashMap.entrySet()){
+
+        for (Map.Entry<String,Discount>entry: Main.getDiscountHashMap().entrySet()){
             System.out.println(entry.getKey());
         }
         System.out.print("Enter Discount Code you want to modify: ");
         String code = sc.next();
-        if(Main.discountHashMap.containsKey(code)){
+        if(Main.getDiscountHashMap().containsKey(code)){
             System.out.println("Modify: ");
-            System.out.println("1. Category: " + Main.discountHashMap.get(code).getCategory());
-            System.out.println("2. Percentage: " + Main.discountHashMap.get(code).getPercentage());
-            System.out.println("3. Discount Code: " + Main.discountHashMap.get(code).getDiscountCode());
+            System.out.println("1. Category: " + Main.getDiscountHashMap().get(code).getCategory());
+            System.out.println("2. Percentage: " + Main.getDiscountHashMap().get(code).getPercentage());
+            System.out.println("3. Discount Code: " + Main.getDiscountHashMap().get(code).getDiscountCode());
             System.out.print("Enter your choice: ");
             int choice  = sc.nextInt();
             if(choice==1){
                 System.out.print("Enter new Category: ");
 //                sc.nextLine();
                 String newCat = sc.nextLine();
-                Main.discountHashMap.get(code).setCategory(newCat);
+                Main.getDiscountHashMap().get(code).setCategory(newCat);
                 System.out.println("Category Successfully changed to "+ newCat);
 
             }
             else if(choice==2){
                 System.out.print("Enter new percentage: ");
                 double newPer = sc.nextDouble();
-                Main.discountHashMap.get(code).setPercentage(newPer);
+                Main.getDiscountHashMap().get(code).setPercentage(newPer);
                 System.out.println("Percentage Successfully changed to "+ newPer);
             }
             else{
                 System.out.print("Enter new DiscountCode: ");
                 String newDisc = sc.next();
-                Discount d1 = Main.discountHashMap.get(code);
+                Discount d1 = Main.getDiscountHashMap().get(code);
                 d1.DiscountCode = newDisc;
-                Main.discountHashMap.remove(Main.discountHashMap.get(code));
-                Main.discountHashMap.put(newDisc,d1);
+                Main.getDiscountHashMap().remove(Main.getDiscountHashMap().get(code));
+                Main.getDiscountHashMap().put(newDisc,d1);
                 System.out.println("Discount Code Successfully changed to "+ newDisc);
 
             }
@@ -114,13 +117,14 @@ public class Discount extends Admin {
     }
 
     private static void remove_discount() {
+        System.out.println();
         System.out.println("Remove Discount: ");
-        for(Map.Entry<String,Discount>entry : Main.discountHashMap.entrySet()){
+        for(Map.Entry<String,Discount>entry : Main.getDiscountHashMap().entrySet()){
             System.out.println(entry.getKey());
         }
         System.out.print("Enter Discount Code you want to remove: ");
         String disc_code = sc.next();
-        Main.discountHashMap.remove(disc_code);
+        Main.getDiscountHashMap().remove(disc_code);
         System.out.println("Discount Coupon removed successfully!");
         admin_menu();
     }
@@ -128,6 +132,7 @@ public class Discount extends Admin {
 
 
     private static void add_discount() {
+        System.out.println();
         System.out.println("Add Discount: ");
         System.out.print("Enter Discount Category : ");
         sc.nextLine();
@@ -140,7 +145,7 @@ public class Discount extends Admin {
                 }
                 String _CouponCode = generate_coupon_code(_Category,_percentage);
                 Discount d1 = new Discount(_Category,_percentage,_CouponCode);
-                Main.discountHashMap.put(d1.DiscountCode,d1);
+                Main.getDiscountHashMap().put(d1.DiscountCode,d1);
                 System.out.println("New Discount Coupon Added with Coupon Code - "+ d1.DiscountCode + " .");
                 admin_menu();
 
@@ -159,7 +164,7 @@ public class Discount extends Admin {
         category = category.toUpperCase();
         StringBuilder sb = new StringBuilder();
         for(int i = 0 ; i<category.length();i++){
-            if(category.charAt(i)==' '){
+            if(category.charAt(i)==' ' ||sb.length()>6){
                 break;
             }
             sb.append(category.charAt(i));

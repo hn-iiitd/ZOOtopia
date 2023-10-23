@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>iiitd.harsh22199</groupId>
-    <artifactId>ZOOtopia</artifactId>
+    <artifactId>ZooBuddies</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>ZOOtopia</name>
+    <name>ZOOBuddies</name>
     <url>http://maven.apache.org</url>
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
