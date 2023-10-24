@@ -5,9 +5,9 @@ import java.util.Scanner;
 //Admin Username --> admin
 //Admin Password --> admin123
 public class Admin extends Main{
-    private static final String admin_username = "admin";
+    private static final String admin_username = "admin"; //setUsername
 
-    private static final String admin_password = "admin123";
+    private static final String admin_password = "admin123"; //setPassword
     private static int attraction_count = 0;
 
     //------------------------Setters Getters ---------------------------------
@@ -132,7 +132,7 @@ public class Admin extends Main{
         }
         System.out.print("Enter your choice: ");
         int choice = sc.nextInt();
-        if(choice>0 && choice<Main.getAnimalList().size()){
+        if(choice>0 && choice<=Main.getAnimalList().size()){
             if(((Main.getAnimalList().get(choice-1).getClass().equals(Mammal.class)) && Main.getMammal_count()==2) || ((Main.getAnimalList().get(choice-1).getClass() == Amphibian.class ) && Main.getAmphibian_count()==2) || ((Main.getAnimalList().get(choice-1).getClass()== Reptile.class) && Main.getReptile_count()==2)){
                 System.out.println("Animal can't be removed because " + Main.getAnimalList().get(choice-1).getClass()  + " category only have 2 animals ");
             }
@@ -325,7 +325,7 @@ public class Admin extends Main{
     public static boolean admin_login_details_check(String Username, String Password) {  // method used for checking admin login details
         return Username.equals(getAdmin_username()) && Password.equals(getAdmin_password());
     }
-    Admin(String username){
+    Admin(String username,String Password){
         admin_login();
     }
     Admin(){

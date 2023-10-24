@@ -196,7 +196,7 @@ public class Main {
             }
             else{
                 if(selected_option == 1){
-                    new Admin("admin");
+                    new Admin("admin","admin123");
                 } else if (selected_option ==2) {
                     new Visitor(true);
                 } else if(selected_option==3){
@@ -243,6 +243,8 @@ public class Main {
                 "ticket now!");a1.setEvent_price(15);
         Attraction a2 = new Attraction("Dinosaur Show","World's best show");a2.setEvent_price(12);
         Main.attractions.add(a1);Main.attractions.add(a2);
+        Main.getAttraction_id_map().put(a1.getAttraction_id(),a1);
+        Main.getAttraction_id_map().put(a2.getAttraction_id(),a2);
         System.out.println("Welcome to ZOOtopia!");
         System.out.println();
         start();

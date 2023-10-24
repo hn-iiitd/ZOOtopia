@@ -85,6 +85,7 @@ public class Discount extends Admin {
             System.out.print("Enter your choice: ");
             int choice  = sc.nextInt();
             if(choice==1){
+                sc.nextLine();
                 System.out.print("Enter new Category: ");
 //                sc.nextLine();
                 String newCat = sc.nextLine();
@@ -102,8 +103,8 @@ public class Discount extends Admin {
                 System.out.print("Enter new DiscountCode: ");
                 String newDisc = sc.next();
                 Discount d1 = Main.getDiscountHashMap().get(code);
+                Main.getDiscountHashMap().remove(d1.getDiscountCode());
                 d1.DiscountCode = newDisc;
-                Main.getDiscountHashMap().remove(Main.getDiscountHashMap().get(code));
                 Main.getDiscountHashMap().put(newDisc,d1);
                 System.out.println("Discount Code Successfully changed to "+ newDisc);
 

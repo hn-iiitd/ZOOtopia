@@ -3,12 +3,17 @@ package iiitd.harsh22199;
 import java.util.InputMismatchException;
 
 public class Attraction extends Admin {
+    //--------------------attributes-----------------------------
     private String attraction_details;
     private final int attraction_id;
     private String attraction_name;
     private double price;
     private int countOfvisitors = 0;
     private boolean attraction_status = true;
+
+    //---------------attributes----------------------
+
+    //----------Setters and Getters----------------
 
     public boolean isAttraction_status() {
         return this.attraction_status;
@@ -34,13 +39,27 @@ public class Attraction extends Admin {
         this.countOfvisitors = countOfvisitors;
     }
 
-    public Attraction(String attraction_name, String details) {
-        super();
-        this.attraction_name = attraction_name;
-        this.attraction_details = details;
-        this.attraction_id= Main.getAttraction_id_no();
-        Main.setAttraction_id_no(getAttraction_id_no()+1);
+    public int getAttraction_id() {
+        return attraction_id;
     }
+
+    public String getAttraction_name() {
+        return attraction_name;
+    }
+
+    public void setAttraction_name(String attraction_name) {
+        this.attraction_name = attraction_name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+
 
 
     public String getEvent_name() {
@@ -63,9 +82,17 @@ public class Attraction extends Admin {
     public void manageEvent() {
         System.out.println();
     }
+    //-----------Setters and Getters end---------------------
 
     public String toString() {
         return getEvent_name() ;
+    }
+    public Attraction(String attraction_name, String details) {
+        super();
+        this.attraction_name = attraction_name;
+        this.attraction_details = details;
+        this.attraction_id= Main.getAttraction_id_no();
+        Main.setAttraction_id_no(getAttraction_id_no()+1);
     }
 
     static void manage_attraction(){ //Method for managing attractions for ADMIN
@@ -115,19 +142,22 @@ public class Attraction extends Admin {
         }
     }
 
-    private static void remove_attraction() {
+    private static void remove_attraction() { //method for removing attractions
+        System.out.println();
+        System.out.println("Remove Attraction : ");
+        System.out.println();
+
+        view_attraction();
+
         System.out.print("Enter id of attraction to be removed.");
         try{
             int id_inp = sc.nextInt();
-            boolean flag = false;
             if(!Main.getAttraction_id_map().containsKey(id_inp)){
                 throw new IncorrectOptionException("Invalid id");
             }
             for(int i = 0; i< Main.getAttractions().size(); i++){
                 if(Main.getAttractions().get(i).attraction_id==id_inp){
-
                     Main.getAttractions().remove(Main.getAttractions().get(i));
-                    flag = true;
                     break;
                 }
             }
@@ -139,7 +169,7 @@ public class Attraction extends Admin {
         }
     }
 
-    private static void modify_attraction() {
+    private static void modify_attraction() { //method for modifying attractions
         System.out.println("Modify Attractions: ");
         view_attraction();
         System.out.print("Enter your choice: ");
@@ -156,22 +186,25 @@ public class Attraction extends Admin {
             if(c==1){
                 System.out.print("Enter new price: ");
                 Main.getAttraction_id_map().get(choice).setEvent_price(sc.nextInt());
+                System.out.println("Price changed Successfully!");
             }
             else if(c==2){
                 sc.nextLine();
                 System.out.print("Enter new Attraction Details: ");
                 Main.getAttraction_id_map().get(choice).setAttraction_details(sc.nextLine());
+                System.out.println("Details Changed Successfully!");
             }
             else{
                 System.out.println("Invalid option Selected!");
             }
+            System.out.println();
         }
 
 
 
     }
 
-    private static void view_attraction() {
+    private static void view_attraction() { //method for viewing attractions
         System.out.println("View Attractions");
         if(Main.getAttractions().isEmpty()){
             System.out.println("No attractions added by the admin.");
@@ -204,7 +237,7 @@ public class Attraction extends Admin {
         System.out.println("Remember ! Attraction is open by default when added. To close it go to '3. Schedule Events'.");
 
         }
-    protected static void schedule_event(){
+    protected static void schedule_event(){ //method used for scheduling event
         System.out.println();
         System.out.println("Schedule Events: ");
         view_attraction();
@@ -241,6 +274,7 @@ public class Attraction extends Admin {
                     System.out.println("Attraction is open now");
                 } else if (choice==3) {
                     Main.getAttraction_id_map().get(id_sch).setAttraction_status(false);
+                    System.out.println("Attraction is closed now");
                 } else {
                     exit();
                     }
@@ -252,6 +286,12 @@ public class Attraction extends Admin {
             }
 
         }
+        else{
+            System.out.println("Attraction with provided id doesn't exist!");
+            schedule_event();
+        }
+
+        admin_menu();
 
     }
     }
