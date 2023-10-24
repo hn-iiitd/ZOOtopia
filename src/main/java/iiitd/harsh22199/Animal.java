@@ -1,8 +1,8 @@
 package iiitd.harsh22199;
 
 
-public abstract class Animal{
-    public Animal(String name, String noise){
+public abstract class Animal{ //abstract class for animal which have common methods for its subclasses
+    public Animal(String name, String noise){ //constructor
         this.Name = name;
         this.sound = noise;
     }

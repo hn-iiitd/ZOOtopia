@@ -1,6 +1,6 @@
 package iiitd.harsh22199;
 
-public interface Membership  {
+public interface Membership  { //Membership interface which is implemented by Premium and Basic Memberships because they have common methods.
 
 
     public void setMembership();

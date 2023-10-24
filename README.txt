@@ -20,6 +20,7 @@ Assumptions Made -
 16. The Program ensures that there should be atleast two animals of each type.
 17. An attraction is open by default when added, can be turned off by schedule_event.
 18. When a visitor is viewing attractions/Animals, and select one , it shows the message to buy tickets and go to visit animals / attractions to visit them.
+19. If there are no Visitors, the visitor stats shows random Attraction as most popular.
 
 HOME_FOLDER = ZooBuddies
 

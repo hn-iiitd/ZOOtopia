@@ -1,6 +1,6 @@
 package iiitd.harsh22199;
 
-public class PremiumMembership extends Visitor implements Membership{
+public class PremiumMembership extends Visitor implements Membership{ //class for Premium membership
     PremiumMembership(){
 
         Main.setCountOfPremiumMembers(Main.getCountOfPremiumMembers()+1);

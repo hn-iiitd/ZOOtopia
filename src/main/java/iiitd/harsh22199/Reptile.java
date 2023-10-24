@@ -1,6 +1,6 @@
 package iiitd.harsh22199;
 
-public class Reptile extends Animal {
+public class Reptile extends Animal { //class for Animal Type Reptile
     public Reptile(String name,String noise) {
         super(name,noise);
         Main.setReptile_count(Main.getReptile_count()+1);

@@ -1,6 +1,6 @@
 package iiitd.harsh22199;
 
-public class Ticket {
+public class Ticket { //class for creating tickets
     private int Ticket_id ;
     private double Ticket_price;
 

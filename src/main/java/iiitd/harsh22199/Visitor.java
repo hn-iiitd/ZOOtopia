@@ -3,7 +3,7 @@ package iiitd.harsh22199;
 import java.lang.reflect.Member;
 import java.util.*;
 
-public class Visitor extends Main{
+public class Visitor extends Main{ //class for visitor access
     //-------------------------Attributes-------start----------------------------------------------------------
 
 

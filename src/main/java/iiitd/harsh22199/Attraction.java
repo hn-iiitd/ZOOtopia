@@ -2,7 +2,7 @@ package iiitd.harsh22199;
 
 import java.util.InputMismatchException;
 
-public class Attraction extends Admin {
+public class Attraction extends Admin { //Administrator roles for events
     //--------------------attributes-----------------------------
     private String attraction_details;
     private final int attraction_id;

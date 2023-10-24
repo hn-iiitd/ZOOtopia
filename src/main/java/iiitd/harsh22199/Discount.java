@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Map;
 
-public class Discount extends Admin {
+public class Discount extends Admin { //Administrator access for Discounts
     private String Category;
     private double percentage;
 
@@ -68,7 +68,7 @@ public class Discount extends Admin {
         }
     }
 
-    private static void modify_discount() {
+    private static void modify_discount() { //method for modifying discounts
         System.out.println();
         System.out.println("Modify Discount: ");
 
@@ -117,7 +117,7 @@ public class Discount extends Admin {
         }
     }
 
-    private static void remove_discount() {
+    private static void remove_discount() { //method for removing discounts
         System.out.println();
         System.out.println("Remove Discount: ");
         for(Map.Entry<String,Discount>entry : Main.getDiscountHashMap().entrySet()){
@@ -132,7 +132,7 @@ public class Discount extends Admin {
 
 
 
-    private static void add_discount() {
+    private static void add_discount() { //method for adding discounts
         System.out.println();
         System.out.println("Add Discount: ");
         System.out.print("Enter Discount Category : ");
@@ -160,7 +160,7 @@ public class Discount extends Admin {
             }
         }
 
-    private static String generate_coupon_code(String category, int percentage) {
+    private static String generate_coupon_code(String category, int percentage) { //method for generating coupon codes
         category = category.strip();
         category = category.toUpperCase();
         StringBuilder sb = new StringBuilder();

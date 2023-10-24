@@ -1,6 +1,6 @@
 package iiitd.harsh22199;
 
-public class Mammal extends Animal  {
+public class Mammal extends Animal  { //Class for Animal Type - Mammal
     private String Name;
     private String sound;
     private String animal_facts;

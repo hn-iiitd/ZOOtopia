@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Main {
+public class Main { //Main class for ZOO
     //------attributes-------------------
     private static int mammal_count = 0;
     private static int reptile_count = 0;

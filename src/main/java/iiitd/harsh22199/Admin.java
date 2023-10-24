@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 //Admin Username --> admin
 //Admin Password --> admin123
-public class Admin extends Main{
+public class Admin extends Main{ //Administrator Permissions (ZOO is a parent class)
     private static final String admin_username = "admin"; //setUsername
 
     private static final String admin_password = "admin123"; //setPassword

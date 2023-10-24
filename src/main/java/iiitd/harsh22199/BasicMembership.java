@@ -1,6 +1,6 @@
 package iiitd.harsh22199;
 
-public class BasicMembership extends Visitor implements Membership {
+public class BasicMembership extends Visitor implements Membership { //Class for implementing basic membership
 
 
     private final double membership_Price = 20;

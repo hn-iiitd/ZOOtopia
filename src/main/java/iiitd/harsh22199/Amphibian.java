@@ -1,6 +1,6 @@
 package iiitd.harsh22199;
 
-public class Amphibian extends Animal {
+public class Amphibian extends Animal { //class for amphibian type
     public Amphibian(String name ,String noise) {
         super(name,noise);
         Main.setAmphibian_count( Main.getAmphibian_count()+1);
