@@ -152,7 +152,6 @@ public class Admin extends Main{ //Administrator Permissions (ZOO is a parent cl
         else{
             System.out.println("Invalid input.");
         }
-        admin_menu();
 
     }
 
@@ -194,7 +193,6 @@ public class Admin extends Main{ //Administrator Permissions (ZOO is a parent cl
             else{
                 System.out.println("Invalid Input!");
             }}
-        admin_menu();
     }
 
     private static void add_animals() { // method used to add animals

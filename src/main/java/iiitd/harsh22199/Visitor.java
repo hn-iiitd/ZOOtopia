@@ -270,20 +270,25 @@ public class Visitor extends Main{ //class for visitor access
         }
         System.out.print("Enter you choice: ");
         int c = sc.nextInt();
-        System.out.println(Main.getAnimalList().get(c-1).getName() );
-        System.out.println("1. Feed Animal.");
-        System.out.println("2. Read about Animal.");
-        System.out.print("Enter your choice: ");
-        int n = sc.nextInt();
-        if(n==1){
-            System.out.println("Noise from "+ Main.getAnimalList().get(c-1).getName() +  " : \n"+ Main.getAnimalList().get(c-1).getSound());
-        }else if(n==2){
-            System.out.println("Facts about " + Main.getAnimalList().get(c-1).getName()+" : \n"+ Main.getAnimalList().get(c-1).getAnimal_facts());
+        if(isPremium_membership() || isBasic_membership()) {
+            System.out.println(Main.getAnimalList().get(c - 1).getName());
+            System.out.println("1. Feed Animal.");
+            System.out.println("2. Read about Animal.");
+            System.out.print("Enter your choice: ");
+            int n = sc.nextInt();
+            if (n == 1) {
+                System.out.println("Noise from " + Main.getAnimalList().get(c - 1).getName() + " : \n" + Main.getAnimalList().get(c - 1).getSound());
+            } else if (n == 2) {
+                System.out.println("Facts about " + Main.getAnimalList().get(c - 1).getName() + " : \n" + Main.getAnimalList().get(c - 1).getAnimal_facts());
+            } else {
+                System.out.println("Wrong option selected.");
+            }
+            visitor_menu();
         }
         else{
-            System.out.println("Wrong option selected.");
+            System.out.println("You need a membership to visit animals ! ");
+            visitor_menu();
         }
-        visitor_menu();
     }
     private void exit() { //method used to log out visitor
         System.out.println("Logged out Successfully !");
@@ -324,7 +329,7 @@ public class Visitor extends Main{ //class for visitor access
             System.out.println();
             System.out.print("Enter your choice: ");
             int n  = sc.nextInt();
-            if(n<1 || n> Main.getAttractions().size() || !Main.getAttractions().get(n-1).isAttraction_status()){
+            if(n<1 || n> Main.getAttractions().size() +1 || !Main.getAttractions().get(n-1).isAttraction_status()){
                 System.out.println("Invalid option Selected");
             }
             else if(!isBasic_membership() && !isPremium_membership()){
@@ -428,7 +433,7 @@ public class Visitor extends Main{ //class for visitor access
             System.out.print("Enter Discount Coupon (if any, otherwise type * none *  : " );
             String discount_coupon = sc.next();
             if(Main.getDiscountHashMap().containsKey(discount_coupon)){
-                if((discount_coupon.contains("SENIOR") &&getVisitorAge()>60) || (discount_coupon.contains("MINOR") && getVisitorAge()<18)){
+                if((discount_coupon.contains("SENIOR") &&getVisitorAge()>60) || (discount_coupon.contains("MINOR") && getVisitorAge()<18) || (!discount_coupon.contains("MINOR") && !discount_coupon.contains("SENIOR"))){
                     disc_amount += Main.getAttractions().get(choice-1).getEvent_price()* Main.getDiscountHashMap().get(discount_coupon).getPercentage()/100;
                 }
                 else if(discount_coupon.equalsIgnoreCase("none") || discount_coupon.equalsIgnoreCase("null")){
@@ -484,7 +489,7 @@ public class Visitor extends Main{ //class for visitor access
                 }
 
                 if(Main.getDiscountHashMap().containsKey(disc)){
-                    if((disc.contains("SENIOR")&& getVisitorAge()>60) || ( disc.contains("MINOR") && getVisitorAge()<18)){
+                    if((disc.contains("SENIOR")&& getVisitorAge()>60) || ( disc.contains("MINOR") && getVisitorAge()<18) || (!disc.contains("MINOR") && !disc.contains("SENIOR")) ){
                         double amount = membership_cost - membership_cost*(Main.getDiscountHashMap().get(disc).getPercentage()/100);
                         System.out.println("Total Amount to be Paid is : " + "Rs. "+ amount);
                         double new_balance = this.getVisitorBalance() - amount;
@@ -622,7 +627,7 @@ public class Visitor extends Main{ //class for visitor access
                 if(choice> Main.getAttractions().size()+1 || choice<1){
                     throw new IncorrectOptionException("Invalid Option!");
                 }
-                System.out.println(" ZOOtopia offers an adventure ride that allows you to explore unexplored trails. Buy your ticket now!");
+                System.out.println("Attraction Details : " + Main.getAttractions().get(choice-1).getAttraction_details());
                 System.out.println();
                 exploreZoo();
             }
